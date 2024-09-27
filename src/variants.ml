@@ -76,7 +76,8 @@ module Info = struct
                | Ptyp_variant _
                | Ptyp_poly _
                | Ptyp_package _
-               | Ptyp_extension _ -> [ Ppxlib_jane.Shim.Pcstr_tuple_arg.of_core_type t ])
+               | Ptyp_extension _ 
+               | Ptyp_open _ -> [ Ppxlib_jane.Shim.Pcstr_tuple_arg.of_core_type t ])
           in
           { Constructor.name; args }
         | Rtag (_, _, args) ->
@@ -176,7 +177,7 @@ let generate_stable_variant_module ~loc ~variant_info =
     in
     let expr =
       List.fold_right
-        ~init:(pexp_function ~loc cases)
+        ~init:(pexp_function_cases ~loc cases)
         variant_constructors
         ~f:(fun { Constructor.name; _ } acc ->
           let name = String.lowercase name in

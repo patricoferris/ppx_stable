@@ -49,7 +49,8 @@ let create_ast_structure_items
      | Ptyp_variant _
      | Ptyp_poly _
      | Ptyp_package _
-     | Ptyp_extension _ ->
+     | Ptyp_extension _ 
+     | Ptyp_open _ ->
        (match target_type with
         | None -> []
         | Some _ ->
